@@ -15,7 +15,7 @@ public class Application {
             this.collectionManager = collectionManager;
     }
 
-    // TODO: 12.11.2020 Переделать принцип работы этого метода, сделать проверку  
+    // TODO: 12.11.2020 Переделать принцип работы этого метода
     void go() {
         Scanner scanner = new Scanner(System.in);
         while (!needExit) {
