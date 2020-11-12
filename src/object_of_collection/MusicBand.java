@@ -29,6 +29,10 @@ public class MusicBand implements Comparable<MusicBand> {
         assert label != null : "Поле 'лейбл' не может быть null";
     }
 
+    public MusicBand(){
+
+    }
+
     public MusicBand(Long id, String name, Coordinates coordinates, ZonedDateTime creationDate, long numberOfParticipants, MusicGenre genre, Label label) {
         this.id = id;
         this.name = name;
@@ -90,8 +94,9 @@ public class MusicBand implements Comparable<MusicBand> {
         this.genre = genre;
     }
 
-    public void setLabel(Label label) {
-        this.label = label;
+    public void setLabel(String label) {
+
+        this.label =new Label(label);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package application;
 
+import building_procedure.BandBuilder;
+
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -17,66 +19,90 @@ public class Application {
     void go() {
         Scanner scanner = new Scanner(System.in);
         while (!needExit) {
-            try {
-                String[] command = readAndParse();
-                    if(command[0].equals("help")||
-                        command[0].equals("info")||
-                        command[0].equals("show")||
-                        command[0].equals("clear")||
-                        command[0].equals("save")||
-                        command[0].equals("remove_first")||
-                        command[0].equals("exit")||
-                        command[0].equals("print_field_ascending_label")||
-                        command[0].equals("add")||
-                        command[0].equals("remove_by_id")||
-                        command[0].equals("update_id")||
-                        command[0].equals("insert")||
-                        command[0].equals("remove_lower")||
-                        command[0].equals("filter_starts_with_name")||
-                        command[0].equals("cout_less_than_ganre")||
-                        command[0].equals("execute_script")){
-
-                    if(command[0].equals("show")||command[0].equals("info")||command[0].equals("help")||command[0].equals("exit")||command[0].equals("remove_first")||command[0].equals("clear")||command[0].equals("save")||command[0].equals("print_field_ascending_label")){
-                        switch(command[0]){
-                            case "show": collectionManager.show(); break;
-                            case "info": collectionManager.info(); break;
-                            case "help": collectionManager.help(); break;
-                            case "clear": collectionManager.clear(); break;
-                            case "save": collectionManager.save(); break;
-                            case "remove_first": collectionManager.removeFirst(); break;
-                            case "exit": collectionManager.exit(); break;
-                        }
+                String[] command = scanner.nextLine().split(" ");
+                switch (command[0]) {
+                    case "show": {
+                        collectionManager.show();
                     }
+                        break;
+                    case "info": {
+                        collectionManager.info();
+                    }
+                        break;
+                    case "help": {
+                        collectionManager.help();
+                    }
+                        break;
+                    case "clear":{
+                        collectionManager.clear();
+                    }
+                        break;
+                    case "save": {
+                        collectionManager.save();
+
+                    }
+                        break;
+                    case "remove_first": {
+                        collectionManager.removeFirst();
+                    }
+                        break;
+                    case "exit": {
+                        collectionManager.exit();
+                    }
+                        break;
+                    case "print_field_ascending_label": {
+                        collectionManager.printFieldAscendingLabel();
+                    }
+                    case "add" :{
+                        collectionManager.add();
+                    }
+                    case "remove_by_id":{
+                        if(command.length==1){
+                            System.out.println(" Вы не ввели параметр ");
+                            break;
+                        }
+                        collectionManager.removeById(Long.parseLong(command[1]));
+                    }
+                    case "update_id":{
+                        collectionManager.updateId(Long.parseLong(command[1]) ,new BandBuilder().create());
+                    }
+                    case "insert_at_index":{
+                        if(command.length==1){
+                            System.out.println(" Вы не ввели параметр ");
+                            break;
+                        }
+                        collectionManager.insertAtIndex(Integer.parseInt(command[1]),new BandBuilder().create());
+                    }
+                    case "remove_lower":{
+                        collectionManager.removeLower(new BandBuilder().create());
+                    }
+                    case "filter_starts_with_name":{
+                        if(command.length==1){
+                            System.out.println(" Вы не ввели параметр ");
+                            break;
+                        }
+                        collectionManager.filterStartsWithName(command[1]);
+                    }
+                    case "count_less_than_genre":{
+                        if(command.length==1){
+                            System.out.println(" Вы не ввели параметр ");
+                            break;
+                        }
+                        collectionManager.coutLessThanGanre(command[1]);
+                    }
+                    case "execute_script":{
+                        if(command.length==1){
+                            System.out.println(" Вы не ввели параметр ");
+                            break;
+                        }
+                        collectionManager.executeScript();
+                    }
+                    default:
+                        System.out.println(" Такой команды нет ");
+
                 }
-               }
-                catch(NoSuchElementException e){
-              }
-            }
         }
-
-    private String[] readAndParse(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("\nВведите команду");
-        String command="";
-
-        do command = command+scanner.nextLine();
-        while ((command.length()-command.replaceAll("}","").length())>(command.length()-command.replaceAll("\\{","").length()));
-        command = command.trim();
-
-        String[] fullCommand;
-        if (!command.split(" ",2)[0].equals("insert")) {
-            fullCommand=command.split(" ",2);
-            if (fullCommand.length>1) while (fullCommand[1].contains("  ")) fullCommand[1]=fullCommand[1].replaceAll("  "," ");
-            if (fullCommand[0].equals("remove"))
-                fullCommand[1]=fullCommand[1].replaceAll(" ","");}
-        //если insert
-        else{if (command.split(" ",3).length<3)
-            fullCommand=command.split(" ",2);
-        else{  fullCommand =command.split(" ",3); while (fullCommand[1].contains("  ")) fullCommand[1]=fullCommand[1].replaceAll("  "," ");}
-        } return fullCommand;
-
     }
-
 }
 
 

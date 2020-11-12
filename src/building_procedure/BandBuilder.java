@@ -2,107 +2,132 @@ package building_procedure;
 
 import console.ConsoleReader;
 import object_of_collection.*;
+import exceptions.*;
 
+import java.io.IOException;
 import java.time.ZonedDateTime;
 
-public class BandBuilder implements IMusicBandBuilder{
+public class BandBuilder implements IMusicBandBuilder, IMassages{
 
-    private String name = "Deafult";
-    private Coordinates coordinates;
-    private ZonedDateTime creationDate;
-    private long numberOfParticipants;
-    private Label label;
+    private MusicBand musicBand;
     private BandCoordinatesBuilder bandCoordinateBuilder;
     private ConsoleReader consoleReader;
-    private MusicGenre musicGenre;
 
     public BandBuilder(){
-        this.bandCoordinateBuilder = new BandCoordinatesBuilder();
+        musicBand = new MusicBand();
         this.consoleReader = new ConsoleReader();
+        this.bandCoordinateBuilder=new BandCoordinatesBuilder(consoleReader);
+
     }
 
     @Override
-    public void setName(){
-        System.out.println("Выведите название музыкальной группы");
-        consoleReader.printDefaultConsoleSymbol();
-        String line = consoleReader.getScanner().nextLine().trim();
-        try{
-            if(line.length() >3 && line.length()<20 ){
-                name = (line).trim();
+    public void setName() {
+        while (true) {
+            System.out.println("Выведите название музыкальной группы значение типа 'String' [не менее 3-х букв и не более 20-ти]");
+            consoleReader.printDefaultConsoleSymbol();
+            String readLine = consoleReader.getScanner().nextLine().trim();
+            System.out.println(readLine);
+            if (readLine.length() == 0) {
+                System.out.println(messageOfEmptyFormatError);
+                continue;
             }
-            else{System.out.println("Название группы не может быть меньше 3 символов или больше 20 символов");
-                setName();}
 
-        }catch(Exception e){
-            System.out.println("Название группы не может быть меньше 3 символов или больше 20 символов");
-            setName();
+            if (readLine.length() > 3 && readLine.length() < 20) {
+                musicBand.setName((readLine).trim());
+                break;
+            } else
+                System.out.println(messageOfInputValueError);
         }
     }
 
     @Override
-    public void setCoordinates() {coordinates = bandCoordinateBuilder.create();
+    public void setCoordinates() {musicBand.setCoordinates(bandCoordinateBuilder.create());
     }
 
     @Override
     public void setNumberOfParticipants() {
-        System.out.println("Введите колличество участников музыкальной группы");
-        consoleReader.printDefaultConsoleSymbol();
-        String line = consoleReader.getScanner().nextLine().trim();
         while (true) {
-            if (Integer.parseInt(line) > 0 && Integer.parseInt(line) < Integer.MAX_VALUE) {
-                numberOfParticipants = Integer.parseInt(line);
-                break;
-            } else System.out.println("Вы ввели неправильное значение для поля колличество участников группы");
+            System.out.println("Введите колличество участников музыкальной группы");
+            consoleReader.printDefaultConsoleSymbol();
+            try {
+                String readLine = consoleReader.getScanner().nextLine().trim();
+                if (readLine.length() == 0) {
+                    System.out.println(messageOfEmptyFormatError);
+                    continue;
+                }
+
+                if (readLine.length() == 3) {
+                    System.out.println(messageOfInputValueError);
+                    continue;
+                }
+
+                int parsedLine = Integer.parseInt(readLine);
+                    musicBand.setNumberOfParticipants(Integer.parseInt(readLine));
+                    break;
+            } catch(NumberFormatException e){
+                System.out.println(messageOfInputValueError);
+            }
         }
     }
 
     @Override
     public void setGenre() {
+        while (true) {
         System.out.println("Выберите жанр для группы из доступных: ");
         MusicGenre.printAllGenres();
         System.out.println("Для этого введите соответствующий порядковый номер");
         consoleReader.printDefaultConsoleSymbol();
-        String line = consoleReader.getScanner().nextLine().trim();
-        while(true) {
-            if (Integer.parseInt(line.trim()) == MusicGenre.POP.getNumber()) {
-                musicGenre = MusicGenre.POP;
-                System.out.println("Тип уровня жизни в городе успешно выбран: " + musicGenre.getName());
-                break;
-            } else if(Integer.parseInt(line.trim()) == MusicGenre.RAP.getNumber()){
-                musicGenre = MusicGenre.RAP;
-                System.out.println("Тип уровня жизни в городе успешно выбран: " + musicGenre.getName());
-                break;
-            } else if(Integer.parseInt(line.trim()) == MusicGenre.ROCK.getNumber()){
-                musicGenre = MusicGenre.ROCK;
-                System.out.println("Тип уровня жизни в городе успешно выбран: " + musicGenre.getName());
-                break;
-            } else if(Integer.parseInt(line.trim()) == MusicGenre.POST_PUNK.getNumber()){
-                musicGenre = MusicGenre.POST_PUNK;
-                System.out.println("Тип уровня жизни в городе успешно выбран: " + musicGenre.getName());
-                break;
-            } else if(Integer.parseInt(line.trim()) == MusicGenre.PSYCHEDELIC_ROCK.getNumber()){
-                musicGenre = MusicGenre.PSYCHEDELIC_ROCK;
-                System.out.println("Тип уровня жизни в городе успешно выбран: " + musicGenre.getName());
-                break;
-            } else{
-                System.out.println(System.lineSeparator()+"Вы должны ввести только порядковый номер жанра для группы");
+            try {
+        String readLine = consoleReader.getScanner().nextLine().trim();
+                if (readLine.length() == 0) {
+                    System.out.println(messageOfEmptyFormatError);
+                    continue;
+                }
+
+                if (Integer.parseInt(readLine.trim()) == MusicGenre.POP.getNumber()) {
+                    musicBand.setGenre(MusicGenre.POP);
+                    System.out.println("Жарн группы успешно выбран: " + musicBand.getGenre().getName());
+                    break;
+                } else if (Integer.parseInt(readLine.trim()) == MusicGenre.RAP.getNumber()) {
+                    musicBand.setGenre(MusicGenre.RAP);
+                    System.out.println("Жарн группы успешно выбран: " + musicBand.getGenre().getName());
+                    break;
+                } else if (Integer.parseInt(readLine.trim()) == MusicGenre.ROCK.getNumber()) {
+                    musicBand.setGenre(MusicGenre.ROCK);
+                    System.out.println("Жарн группы успешно выбран: " + musicBand.getGenre().getName());
+                    break;
+                } else if (Integer.parseInt(readLine.trim()) == MusicGenre.POST_PUNK.getNumber()) {
+                    musicBand.setGenre(MusicGenre.POST_PUNK);
+                    System.out.println("Жарн группы успешно выбран: " + musicBand.getGenre().getName());
+                    break;
+                } else if (Integer.parseInt(readLine.trim()) == MusicGenre.PSYCHEDELIC_ROCK.getNumber()) {
+                    musicBand.setGenre(MusicGenre.PSYCHEDELIC_ROCK);
+                    System.out.println("Жарн группы успешно выбран: " + musicBand.getGenre().getName());
+                    break;
+                } else {
+                    System.out.println(System.lineSeparator() + messageOfInputFormatError);
+
+                }
+            }catch (NumberFormatException e) {
+                System.out.println(messageOfInputFormatError);
             }
         }
     }
 
     @Override
     public void setLabel() {
-        System.out.println("Введите название лейбла группы");
-        consoleReader.printDefaultConsoleSymbol();
-        String line = consoleReader.getScanner().nextLine().trim();
-        while (true){
-         if(line.length()!=0) {
-              label.name= line;
-             break;
-         }else{
-             System.out.println("Вы ничего не ввели, попробуйте снова");
-             }
+        while (true) {
+            System.out.println("Введите название лейбла группы");
+            consoleReader.printDefaultConsoleSymbol();
+            String readLine = consoleReader.getScanner().nextLine().trim();
+            if (readLine.length() == 0) {
+                System.out.println(messageOfEmptyFormatError);
+                continue;
+            }
+            musicBand.setLabel(readLine);
+            break;
         }
+
     }
 
     @Override
@@ -113,10 +138,10 @@ public class BandBuilder implements IMusicBandBuilder{
         setNumberOfParticipants();
         setGenre();
         setLabel();
-        return new MusicBand(name, coordinates,numberOfParticipants, musicGenre,label);
+        return musicBand;
     }
 
     public MusicBand getMusicBand(){
-        return new MusicBand(name ,coordinates ,numberOfParticipants ,musicGenre ,label);
+        return musicBand;
     }
 }

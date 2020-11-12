@@ -4,11 +4,7 @@ public class Coordinates {
     private long x;
     private Double y; //Максимальное значение поля: 302, Поле не может быть null
 
-    public Coordinates(long x, Double y) {
-        this.x = x;
-        assert x >= 0 : "Значение координаты X должна быть больше 0";
-        this.y = y;
-        assert y <= 0 : "Значение координаты Y должна быть меньше 0";
+    public Coordinates() {
     }
 
     public long getX() {

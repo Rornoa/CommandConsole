@@ -33,7 +33,7 @@ public class CollectionManager {
     }
 
     void help() {
-        System.out.println("Доступные команды" +
+        System.out.println("Доступные команды" +"\n"+
                 "help : вывести справку по доступным командам\n" +
                 "info : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)\n" +
                 "show : вывести в стандартный поток вывода все элементы коллекции в строковом представлении\n" +
@@ -62,6 +62,7 @@ public class CollectionManager {
     }//
 
     void removeFirst() {
+        System.out.println("Комманда remove_first была вызвана");
         if (vector.isEmpty()) System.out.println("Коллекция пуста!");
         else {
             vector.remove(vector.firstElement());
@@ -70,20 +71,21 @@ public class CollectionManager {
     }
 
     void exit() {
+        System.out.println("Комманда exit была вызвана");
         System.exit(0);
     }
 
     void show() {
         System.out.println("Комманда show была вызвана");
-        for (MusicBand band : vector) System.out.println("Все элементы коллекции в строковом представлении: "+band.toString());
+        for (MusicBand band : vector) System.out.println("Все элементы коллекции в строковом представлении: " + band.toString());
     }
 
-    // TODO: 31.10.2020
-    void add(MusicBand musicBand) {
+    void add() {
         vector.add(bandBuilder.create());
     }
 
     void printFieldAscendingLabel() {
+        System.out.println("Комманда print_field_ascending_label была вызвана");
         Collections.sort(vector);
         for (MusicBand band : vector) {
             System.out.println(band.getLabel().getName());
@@ -92,14 +94,15 @@ public class CollectionManager {
     }
 
     void removeById(Long key) {
+        System.out.println("Комманда remove_by_id была вызвана");
         if (vector.contains(key)) {
             vector.remove(key);
             System.out.println("Элемент " + key + " удален");
         } else System.out.println("Такого элемента нет в коллекции");
     }
 
-    // TODO: 31.10.2020
     void updateId(Long id, MusicBand musicBand) {
+        System.out.println("Комманда update_id была вызвана");
         for (int i = 0; i < vector.size(); i++) {
             if (id.equals(musicBand.getId())) {
                 vector.set(i, musicBand);
@@ -109,19 +112,19 @@ public class CollectionManager {
         System.out.println("Значения не совпадают между собой.");
     }
 
-    // TODO: 31.10.2020
     void insertAtIndex(Integer index, MusicBand musicBand) {
+        System.out.println("Комманда insertt_at была вызвана");
         vector.insertElementAt(musicBand, index);
         System.out.println("Элемент " + musicBand + " был добавлен в позицию " + index + " коллекции");
     }
 
-    // TODO: 31.10.2020
     void removeLower(MusicBand musicBand) {
+        System.out.println("Комманда remove_lower была вызвана");
         vector.removeIf(band -> band.compareTo(musicBand) < 0);
     }
 
-    // TODO: 31.10.2020
     void filterStartsWithName(String name) {
+        System.out.println("Комманда filter_starts_with_name была вызвана");
         for (MusicBand band : vector) {
             if (band.getName() == name) System.out.println(band.getName() + System.lineSeparator());
             else return;
@@ -129,8 +132,8 @@ public class CollectionManager {
         System.out.println("Элементов, значение поля name которых начинается с подстроки: " + name + " нет в коллекции");
     }
 
-    // TODO: 31.10.2020
     void coutLessThanGanre(String name) {//вывести количество элементов, значение поля genre которых меньше заданного
+        System.out.println("Комманда count_less_than_ganre была вызвана");
         int k = 0;
         try {
             MusicGenre musicGenre = MusicGenre.valueOf(name);
@@ -144,8 +147,7 @@ public class CollectionManager {
 
     }
 
-    // TODO: 31.10.2020
     void executeScript() {
-
+        System.out.println("Комманда execute_script была вызвана");
     }
 }
