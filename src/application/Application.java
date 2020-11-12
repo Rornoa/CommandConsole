@@ -2,7 +2,6 @@ package application;
 
 import building_procedure.BandBuilder;
 
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Application {
@@ -16,6 +15,7 @@ public class Application {
             this.collectionManager = collectionManager;
     }
 
+    // TODO: 12.11.2020 Переделать принцип работы этого метода, сделать проверку  
     void go() {
         Scanner scanner = new Scanner(System.in);
         while (!needExit) {
@@ -61,6 +61,7 @@ public class Application {
                             System.out.println(" Вы не ввели параметр ");
                             break;
                         }
+                        // TODO: 12.11.2020 Здесь будет метод который в бесконечном цикле будет рпосить ввести нужный параметр 
                         collectionManager.removeById(Long.parseLong(command[1]));
                     }
                     case "update_id":{
