@@ -5,12 +5,19 @@ import object_of_collection.MusicGenre;
 import building_procedure.*;
 
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Vector;
 
 public class CollectionManager {
+
+
+    public static String texttoWriteIn;
+    public static String fileName;
 
     private BandBuilder bandBuilder;
     private Date initialisationDate;
@@ -59,7 +66,27 @@ public class CollectionManager {
 
     void save() {
         System.out.println("Комманда save была вызвана");
-    }//
+        fileName = "C:\\Users\\User\\IdeaProjects\\CommandConsole\\src\\goups.txt";
+        texttoWriteIn = "";
+        File file = new File(fileName);
+        try{
+        if (!file.exists()) {
+            System.out.println("Файла не существует, создается новый");
+            System.out.println(file.createNewFile());
+        }
+
+        if (!file.isFile()) System.out.println("это не файл");
+
+        if (!file.canWrite()) {
+            System.out.println("Доступ для записи в файл запрещен");
+
+        } else {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+            writer.write(texttoWriteIn);
+                System.out.println("\nКоллекция сохранена в файл"); }
+        }catch (IOException e) {
+            e.printStackTrace(); }
+    }
 
     void removeFirst() {
         System.out.println("Комманда remove_first была вызвана");
@@ -82,6 +109,7 @@ public class CollectionManager {
 
     void add() {
         vector.add(bandBuilder.create());
+        System.out.println("Только что созданная, музыкальная группа была добавлена в коллекцию");
     }
 
     void printFieldAscendingLabel() {
@@ -101,7 +129,7 @@ public class CollectionManager {
         } else System.out.println("Такого элемента нет в коллекции");
     }
 
-    void updateId(Long id, MusicBand musicBand) {
+    void update(Long id, MusicBand musicBand) {
         System.out.println("Комманда update_id была вызвана");
         for (int i = 0; i < vector.size(); i++) {
             if (id.equals(musicBand.getId())) {
@@ -147,7 +175,7 @@ public class CollectionManager {
 
     }
 
-    void executeScript() {
+    void executeScript(String fileName) {
         System.out.println("Комманда execute_script была вызвана");
     }
 }

@@ -2,102 +2,91 @@ package application;
 
 import building_procedure.BandBuilder;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Application {
 
     private boolean needExit = false;
     private CollectionManager collectionManager;
+    private CommandArgumentHandler commandArgumentHandler;
 
     Application(CollectionManager collectionManager) {
+        this.commandArgumentHandler = new CommandArgumentHandler();
         this.collectionManager = new CollectionManager();
         if (collectionManager != null)
             this.collectionManager = collectionManager;
     }
 
-    // TODO: 12.11.2020 Переделать принцип работы этого метода
     void go() {
         Scanner scanner = new Scanner(System.in);
         while (!needExit) {
-                String[] command = scanner.nextLine().split(" ");
-                switch (command[0]) {
-                    case "show": {
+                String command = scanner.nextLine();
+                switch (command) {
+                    case "show":
                         collectionManager.show();
-                    }
-                        break;
-                    case "info": {
-                        collectionManager.info();
-                    }
-                        break;
-                    case "help": {
-                        collectionManager.help();
-                    }
-                        break;
-                    case "clear":{
-                        collectionManager.clear();
-                    }
-                        break;
-                    case "save": {
-                        collectionManager.save();
+                    break;
 
-                    }
-                        break;
-                    case "remove_first": {
+                    case "info":
+                        collectionManager.info();
+                    break;
+
+                    case "help":
+                        collectionManager.help();
+                    break;
+
+                    case "clear":
+                        collectionManager.clear();
+                    break;
+
+                    case "save": // TODO: 14.11.2020 Проработать запись данных о коллекции в файл.
+                        collectionManager.save();
+                    break;
+
+                    case "remove_first":
                         collectionManager.removeFirst();
-                    }
-                        break;
-                    case "exit": {
+                    break;
+
+                    case "exit":
                         collectionManager.exit();
-                    }
-                        break;
-                    case "print_field_ascending_label": {
+                    break;
+
+                    case "print_field_ascending_label":
                         collectionManager.printFieldAscendingLabel();
-                    }
-                    case "add" :{
+                    break;
+
+                    case "add" :
                         collectionManager.add();
-                    }
-                    case "remove_by_id":{
-                        if(command.length==1){
-                            System.out.println(" Вы не ввели параметр ");
-                            break;
-                        }
-                        // TODO: 12.11.2020 Здесь будет метод который в бесконечном цикле будет рпосить ввести нужный параметр 
-                        collectionManager.removeById(Long.parseLong(command[1]));
-                    }
-                    case "update_id":{
-                        collectionManager.updateId(Long.parseLong(command[1]) ,new BandBuilder().create());
-                    }
-                    case "insert_at_index":{
-                        if(command.length==1){
-                            System.out.println(" Вы не ввели параметр ");
-                            break;
-                        }
-                        collectionManager.insertAtIndex(Integer.parseInt(command[1]),new BandBuilder().create());
-                    }
-                    case "remove_lower":{
+                    break;
+
+                    case "remove_by_id":
+                        collectionManager.removeById((long)commandArgumentHandler.treatmentInt());
+                    break;
+
+                    case "remove_lower":
                         collectionManager.removeLower(new BandBuilder().create());
-                    }
-                    case "filter_starts_with_name":{
-                        if(command.length==1){
-                            System.out.println(" Вы не ввели параметр ");
-                            break;
-                        }
-                        collectionManager.filterStartsWithName(command[1]);
-                    }
-                    case "count_less_than_genre":{
-                        if(command.length==1){
-                            System.out.println(" Вы не ввели параметр ");
-                            break;
-                        }
-                        collectionManager.coutLessThanGanre(command[1]);
-                    }
-                    case "execute_script":{
-                        if(command.length==1){
-                            System.out.println(" Вы не ввели параметр ");
-                            break;
-                        }
-                        collectionManager.executeScript();
-                    }
+                    break;
+
+                    case "update":
+                        collectionManager.update((long)commandArgumentHandler.treatmentInt(),new BandBuilder().create());
+                    break;
+
+                    case "insert_at_index":
+                        collectionManager.insertAtIndex(commandArgumentHandler.treatmentInt(),new BandBuilder().create());
+                    break;
+
+                    case "filter_starts_with_name":
+                        collectionManager.filterStartsWithName(commandArgumentHandler.treatmentString());
+                    break;
+
+                    case "count_less_than_genre":
+                        collectionManager.coutLessThanGanre(commandArgumentHandler.treatmentString());
+                    break;
+                    // TODO: 14.11.2020 Проработать чтение скрипта из файла.
+                    case "execute_script":
+                        collectionManager.executeScript(commandArgumentHandler.treatmentString());
+                    break;
+
                     default:
                         System.out.println(" Такой команды нет ");
 

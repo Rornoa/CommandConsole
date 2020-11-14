@@ -56,7 +56,7 @@ public class BandBuilder implements IMusicBandBuilder, IMassages{
                     continue;
                 }
 
-                if (readLine.length() == 3) {
+                if (readLine.length() > 3) {
                     System.out.println(messageOfInputValueError);
                     continue;
                 }
@@ -138,7 +138,9 @@ public class BandBuilder implements IMusicBandBuilder, IMassages{
         setNumberOfParticipants();
         setGenre();
         setLabel();
+        System.out.println("Группа была успешно создана");
         return musicBand;
+
     }
 
     public MusicBand getMusicBand(){
