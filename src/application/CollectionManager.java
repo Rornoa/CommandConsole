@@ -16,12 +16,10 @@ import java.util.Vector;
 public class CollectionManager {
 
 
-    public static String texttoWriteIn;
     public static String fileName;
 
     private BandBuilder bandBuilder;
     private Date initialisationDate;
-    //alt+enter
     private Vector<MusicBand> vector;
 
     public CollectionManager(File file) {
@@ -61,13 +59,29 @@ public class CollectionManager {
 
     void clear() {
         vector.removeAllElements();
-        System.out.println("Коллекция была очищена.");
+        System.out.println(" ´´´´´´´´´´´´´´´´´´´´´´´$¶´´´´´¶´´´´´¶¢\n" +
+                "´´´´´´´´´´´¶¶¶¶¶¶¶´´´´´´´¶¢´´´¶´´´ø¶\n" +
+                "´´´´´´´´´´¶¶´´´´ø¶¶¶´´´´´´oø´´ø´´øo\n" +
+                "´´´´´´´´´´¶7´´´´´´´¶¶¶´´´´´´1´´´1´´´´1o\n" +
+                "´´´´´´´¶¶¶¶¶¶¶´´´´´´´¶¶¶7´´´´´´´´1o¶¶¶ø\n" +
+                "´´´´´´´¶¶¶¶¶¶¶´´´´´´´´´¶¶¶¶¶¶¶¶´´1\n" +
+                "´´´´´o¶¶¶¶¶¶¶¶¶ø´´´´´´´´´´´´´´´´´´o$¢\n" +
+                "´´´¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶´´´´´´´´´´¢´´1ø´´´1¶¶\n" +
+                "´´¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶o´´´´´´´1$´´´¶\n" +
+                "´¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶´´´´´´´¶´´´´o¶´\n" +
+                "´¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶´´´´´¶¶\n" +
+                "´´¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶´\n" +
+                "´´´¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶´\n" +
+                "´´´´´¶¶¶¶¶¶¶¶¶¶¶¶´\n" +
+                "´´´´´´´¶¶¶¶¶¶¶¶\n"
+        );
+        System.out.println("BOOOOOM! Коллекция была очищена.");
     }
 
     void save() {
         System.out.println("Комманда save была вызвана");
-        fileName = "C:\\Users\\User\\IdeaProjects\\CommandConsole\\src\\goups.txt";
-        texttoWriteIn = "";
+        fileName = "C:\\Users\\User\\IdeaProjects\\CommandConsole\\src\\groups.xml";
+        String texttoWriteIn = "";
         File file = new File(fileName);
         try{
         if (!file.exists()) {
@@ -83,7 +97,25 @@ public class CollectionManager {
         } else {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
             writer.write(texttoWriteIn);
-                System.out.println("\nКоллекция сохранена в файл"); }
+                System.out.println("´´´´´´´´´´´´´´´´´´´´´´¶¶¶¶¶¶¶¶¶\n" +
+                    "´´´´´´´´´´´´´´´´´´´´¶¶´´´´´´´´´´¶¶\n" +
+                    "´´´´´´¶¶¶¶¶´´´´´´´¶¶´´´´´´´´´´´´´´¶¶\n" +
+                    "´´´´´¶´´´´´¶´´´´¶¶´´´´´¶¶´´´´¶¶´´´´´¶¶\n" +
+                    "´´´´´¶´´´´´¶´´´¶¶´´´´´´¶¶´´´´¶¶´´´´´´´¶¶\n" +
+                    "´´´´´¶´´´´¶´´¶¶´´´´´´´´¶¶´´´´¶¶´´´´´´´´¶¶\n" +
+                    "´´´´´´¶´´´¶´´´¶´´´´´´´´´´´´´´´´´´´´´´´´´¶¶\n" +
+                    "´´´´¶¶¶¶¶¶¶¶¶¶¶¶´´´´´´´´´´´´´´´´´´´´´´´´¶¶\n" +
+                    "´´´¶´´´´´´´´´´´´¶´¶¶´´´´´´´´´´´´´¶¶´´´´´¶¶\n" +
+                    "´´¶¶´´´´´´´´´´´´¶´´¶¶´´´´´´´´´´´´¶¶´´´´´¶¶\n" +
+                    "´¶¶´´´¶¶¶¶¶¶¶¶¶¶¶´´´´¶¶´´´´´´´´¶¶´´´´´´´¶¶\n" +
+                    "´¶´´´´´´´´´´´´´´´¶´´´´´¶¶¶¶¶¶¶´´´´´´´´´¶¶\n" +
+                    "´¶¶´´´´´´´´´´´´´´¶´´´´´´´´´´´´´´´´´´´´¶¶\n" +
+                    "´´¶´´´¶¶¶¶¶¶¶¶¶¶¶¶´´´´´´´´´´´´´´´´´´´¶¶\n" +
+                    "´´¶¶´´´´´´´´´´´¶´´¶¶´´´´´´´´´´´´´´´´¶¶\n" +
+                    "´´´¶¶¶¶¶¶¶¶¶¶¶¶´´´´´¶¶´´´´´´´´´´´´¶¶\n" +
+                    "´´´´´´´´´´´´´´´´´´´´´´´¶¶¶¶¶¶¶¶¶¶¶\n");
+            System.out.println("\nКоллекция сохранена в файл");
+        }
         }catch (IOException e) {
             e.printStackTrace(); }
     }
@@ -99,6 +131,21 @@ public class CollectionManager {
 
     void exit() {
         System.out.println("Комманда exit была вызвана");
+        System.out.println("▄███████▀▀▀▀▀▀███████▄\n" +
+                "░▐████▀▒▒▒▒▒▒▒▒▒▒▒▒▀██████▄\n" +
+                "░███▀▒▒▒▒▒НУ▒ПОКА▒▒▒▒▀█████\n" +
+                "░▐██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒████▌\n" +
+                "░▐█▌▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒████▌\n" +
+                "░░█▒▄▀▀▀▀▀▄▒▒▄▀▀▀▀▀▄▒▐███▌\n" +
+                "░░░▐░░░▄▄░░▌▐░░░▄▄░░▌▐███▌\n" +
+                "░▄▀▌░░░▀▀░░▌▐░░░▀▀░░▌▒▀▒█▌\n" +
+                "░▌▒▀▄░░░░▄▀▒▒▀▄░░░▄▀▒▒▄▀▒▌\n" +
+                "░▀▄▐▒▀▀▀▀▒▒▒▒▒▒▀▀▀▒▒▒▒▒▒█\n" +
+                "░░░▀▌▒▄██▄▄▄▄████▄▒▒▒▒█▀\n" +
+                "░░░░▄██████████████▒▒▐▌\n" +
+                "░░░▀███▀▀████▀█████▀▒▌\n" +
+                "░░░░░▌▒▒▒▄▒▒▒▄▒▒▒▒▒▒▐\n" +
+                "░░░░░▌▒▒▒▒▀▀▀▒▒▒▒▒▒▒▐");
         System.exit(0);
     }
 
@@ -161,7 +208,7 @@ public class CollectionManager {
     }
 
     void coutLessThanGanre(String name) {//вывести количество элементов, значение поля genre которых меньше заданного
-        System.out.println("Комманда count_less_than_ganre была вызвана");
+        System.out.println("Комманда count_less_than_genre была вызвана");
         int k = 0;
         try {
             MusicGenre musicGenre = MusicGenre.valueOf(name);

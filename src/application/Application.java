@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class Application {
 
+    private String defaultConsoleSymbol = ">>";
     private boolean needExit = false;
     private CollectionManager collectionManager;
     private CommandArgumentHandler commandArgumentHandler;
@@ -19,6 +20,20 @@ public class Application {
     }
 
     void go() {
+        System.out.println("____________.♥.\n" +
+                "____________.♥♫♥.____________.♥. *\n" +
+                "____________.♥♫♥♫.______-.♥♫♥. * \n" +
+                "____________.♥♫♥♫♥._-.♥♫♥♫. * \n" +
+                "_____________.♥♫♥♫♥♫♥♫♥♫♥. *\n" +
+                "______-.♥♫♥♫♥♫♥♫♥♫♥♫♥. *             Добро пожаловать в музыкальный блокнот!\n" +
+                "_.♥♫♥♫♥♫♥♥♫♥♫♥♫♥♥♫♥♫♥. * . *            Для того чтобы ознакомиться с возможными командами введите help\n" +
+                "______-.♥♫♥♫♥♫♥♫♥♫♥♫♥. * . * . * ..\n" +
+                "___________.♥♫♥♫♥♫♥♫♥♫♥. * . * . * ..\n" +
+                "____________.♥♫♥♫♥._-.♫♥♫♥. * . *. * . * ..\n" +
+                "____________.♫♥♫♥.______-.♥♫♥. * .* ..\n" +
+                "____________.♥♫♥.____________.♥. * . *.\n" +
+                "_____________.♥\n");
+        System.out.print(defaultConsoleSymbol);
         Scanner scanner = new Scanner(System.in);
         while (!needExit) {
                 String command = scanner.nextLine();
@@ -89,7 +104,12 @@ public class Application {
 
                     default:
                         System.out.println(" Такой команды нет ");
-
+                        System.out.println("__________________________ \t\t\t\n" +
+                                "___|____|____|____|____|__ \t\t\t\n" +
+                                "_|____|____|башкой|____|____| \t\t\t\n" +
+                                "___|____|биться|____|____|__ \t\t\t\n" +
+                                "|____|____|здесь|____|____| \t\t\t\n" +
+                                "___|____|____|____|____|__ \t\t\t\n");
                 }
         }
     }

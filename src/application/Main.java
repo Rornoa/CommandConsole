@@ -9,9 +9,7 @@ public class Main {
         if (args.length!=0)
             collection=new CollectionManager(new File(args[0]));
         else  collection=new CollectionManager();
-
         Application app = new Application(collection);
         app.go();
-
     }
 }

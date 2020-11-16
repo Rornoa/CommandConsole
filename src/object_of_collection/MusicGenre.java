@@ -5,7 +5,9 @@ public enum MusicGenre {
     RAP("Рэп",2),
     POP("Попса",3),
     POST_PUNK("Пост-панк",4),
-    ROCK("Рок",5);
+    ROCK("Рок",5),
+    JAZZ("Джазз",6);
+
 
     private String name;
     final private int number;
@@ -24,11 +26,12 @@ public enum MusicGenre {
     }
 
     public static void printAllGenres(){
-        System.out.println(PSYCHEDELIC_ROCK.getNumber()+ " - " + PSYCHEDELIC_ROCK.getName()+ System.lineSeparator()
-                        + RAP.getNumber()+ " - " + RAP.getName() + System.lineSeparator()
-                        + POP.getNumber() + " - " + POP.getName() + System.lineSeparator()
-                        + POST_PUNK.getNumber() + " - " + POST_PUNK.getNumber() + System.lineSeparator()
-                        + ROCK.getNumber() + " - " + ROCK.getName() + System.lineSeparator());
+        System.out.println(PSYCHEDELIC_ROCK.getNumber()+ " - " + PSYCHEDELIC_ROCK.getName()+"\n"
+                        + RAP.getNumber()+ " - " + RAP.getName()+"\n"
+                        + POP.getNumber() + " - " + POP.getName()+"\n"
+                        + POST_PUNK.getNumber() + " - " + POST_PUNK.getName()+"\n"
+                        + ROCK.getNumber() + " - " + ROCK.getName()+"\n"
+                        + JAZZ.getNumber() + " - " + JAZZ.getName()+"\n");
     }
 
 }
