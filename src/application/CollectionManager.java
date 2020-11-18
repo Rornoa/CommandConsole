@@ -1,5 +1,6 @@
 package application;
 
+import object_of_collection.Coordinates;
 import object_of_collection.MusicBand;
 import object_of_collection.MusicGenre;
 import building_procedure.*;
@@ -38,7 +39,7 @@ public class CollectionManager {
     }
 
     void help() {
-        System.out.println("Доступные команды" +"\n"+
+        System.out.println("Доступные команды" + "\n" +
                 "help : вывести справку по доступным командам\n" +
                 "info : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)\n" +
                 "show : вывести в стандартный поток вывода все элементы коллекции в строковом представлении\n" +
@@ -59,65 +60,56 @@ public class CollectionManager {
 
     void clear() {
         vector.removeAllElements();
-        System.out.println(" ´´´´´´´´´´´´´´´´´´´´´´´$¶´´´´´¶´´´´´¶¢\n" +
-                "´´´´´´´´´´´¶¶¶¶¶¶¶´´´´´´´¶¢´´´¶´´´ø¶\n" +
-                "´´´´´´´´´´¶¶´´´´ø¶¶¶´´´´´´oø´´ø´´øo\n" +
-                "´´´´´´´´´´¶7´´´´´´´¶¶¶´´´´´´1´´´1´´´´1o\n" +
-                "´´´´´´´¶¶¶¶¶¶¶´´´´´´´¶¶¶7´´´´´´´´1o¶¶¶ø\n" +
-                "´´´´´´´¶¶¶¶¶¶¶´´´´´´´´´¶¶¶¶¶¶¶¶´´1\n" +
-                "´´´´´o¶¶¶¶¶¶¶¶¶ø´´´´´´´´´´´´´´´´´´o$¢\n" +
-                "´´´¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶´´´´´´´´´´¢´´1ø´´´1¶¶\n" +
-                "´´¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶o´´´´´´´1$´´´¶\n" +
-                "´¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶´´´´´´´¶´´´´o¶´\n" +
-                "´¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶´´´´´¶¶\n" +
-                "´´¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶´\n" +
-                "´´´¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶´\n" +
-                "´´´´´¶¶¶¶¶¶¶¶¶¶¶¶´\n" +
-                "´´´´´´´¶¶¶¶¶¶¶¶\n"
-        );
-        System.out.println("BOOOOOM! Коллекция была очищена.");
+        System.out.println("Коллекция была очищена.");
     }
 
     void save() {
         System.out.println("Комманда save была вызвана");
-        fileName = "C:\\Users\\User\\IdeaProjects\\CommandConsole\\src\\groups.xml";
-        String texttoWriteIn = "";
+        fileName = "C:\\Users\\User\\IdeaProjects\\CommandConsole\\resources\\groups.xml";
+        String texttoWriteIn = "<Objects>\n";
+        for (MusicBand musicBand : vector) {
+            Coordinates coordinates = musicBand.getCoordinates();
+            texttoWriteIn += "    <MusicBand>\n" +
+                    "        <name>" + musicBand.getName() + "</name>\n" +
+                    "        <label>\n" +
+                    "\t        <name>" + musicBand.getLabel().toString() + "</name>\n" +
+                    "        </label>\n" +
+                    "        <coordinate>\n" +
+                    "\t        <x>" + coordinates.getX() + "</x>\n" +
+                    "\t        <y>" + coordinates.getY() + "</y>\n" +
+                    "        </coordinate>\n" +
+                    "        <id>" + musicBand.getId() + "</id>\n" +
+                    "        <numberOfParticipiants>" + musicBand.getNumberOfParticipants() + "</numberOfParticipiants >\n" +
+                    "        <genre>" + musicBand.getGenre() + "</genre>\n" +
+                    "        <creationDate>" + musicBand.getCreationDate() + "</creationDate>\n" +
+                    "    </MusicBand>\n";
+        }
+        texttoWriteIn += "</Objects>";
         File file = new File(fileName);
-        try{
-        if (!file.exists()) {
-            System.out.println("Файла не существует, создается новый");
+        System.out.println(file.getAbsolutePath());
+        try {
+
             System.out.println(file.createNewFile());
-        }
 
-        if (!file.isFile()) System.out.println("это не файл");
 
-        if (!file.canWrite()) {
-            System.out.println("Доступ для записи в файл запрещен");
+            if (!file.isFile()) {
+                System.out.println("это не файл");
+                return;
+            }
 
-        } else {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+            if (!file.canWrite()) {
+                System.out.println("Доступ для записи в файл запрещен");
+                return;
+            }
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
             writer.write(texttoWriteIn);
-                System.out.println("´´´´´´´´´´´´´´´´´´´´´´¶¶¶¶¶¶¶¶¶\n" +
-                    "´´´´´´´´´´´´´´´´´´´´¶¶´´´´´´´´´´¶¶\n" +
-                    "´´´´´´¶¶¶¶¶´´´´´´´¶¶´´´´´´´´´´´´´´¶¶\n" +
-                    "´´´´´¶´´´´´¶´´´´¶¶´´´´´¶¶´´´´¶¶´´´´´¶¶\n" +
-                    "´´´´´¶´´´´´¶´´´¶¶´´´´´´¶¶´´´´¶¶´´´´´´´¶¶\n" +
-                    "´´´´´¶´´´´¶´´¶¶´´´´´´´´¶¶´´´´¶¶´´´´´´´´¶¶\n" +
-                    "´´´´´´¶´´´¶´´´¶´´´´´´´´´´´´´´´´´´´´´´´´´¶¶\n" +
-                    "´´´´¶¶¶¶¶¶¶¶¶¶¶¶´´´´´´´´´´´´´´´´´´´´´´´´¶¶\n" +
-                    "´´´¶´´´´´´´´´´´´¶´¶¶´´´´´´´´´´´´´¶¶´´´´´¶¶\n" +
-                    "´´¶¶´´´´´´´´´´´´¶´´¶¶´´´´´´´´´´´´¶¶´´´´´¶¶\n" +
-                    "´¶¶´´´¶¶¶¶¶¶¶¶¶¶¶´´´´¶¶´´´´´´´´¶¶´´´´´´´¶¶\n" +
-                    "´¶´´´´´´´´´´´´´´´¶´´´´´¶¶¶¶¶¶¶´´´´´´´´´¶¶\n" +
-                    "´¶¶´´´´´´´´´´´´´´¶´´´´´´´´´´´´´´´´´´´´¶¶\n" +
-                    "´´¶´´´¶¶¶¶¶¶¶¶¶¶¶¶´´´´´´´´´´´´´´´´´´´¶¶\n" +
-                    "´´¶¶´´´´´´´´´´´¶´´¶¶´´´´´´´´´´´´´´´´¶¶\n" +
-                    "´´´¶¶¶¶¶¶¶¶¶¶¶¶´´´´´¶¶´´´´´´´´´´´´¶¶\n" +
-                    "´´´´´´´´´´´´´´´´´´´´´´´¶¶¶¶¶¶¶¶¶¶¶\n");
+            writer.close();
             System.out.println("\nКоллекция сохранена в файл");
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        }catch (IOException e) {
-            e.printStackTrace(); }
     }
 
     void removeFirst() {
@@ -131,27 +123,13 @@ public class CollectionManager {
 
     void exit() {
         System.out.println("Комманда exit была вызвана");
-        System.out.println("▄███████▀▀▀▀▀▀███████▄\n" +
-                "░▐████▀▒▒▒▒▒▒▒▒▒▒▒▒▀██████▄\n" +
-                "░███▀▒▒▒▒▒НУ▒ПОКА▒▒▒▒▀█████\n" +
-                "░▐██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒████▌\n" +
-                "░▐█▌▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒████▌\n" +
-                "░░█▒▄▀▀▀▀▀▄▒▒▄▀▀▀▀▀▄▒▐███▌\n" +
-                "░░░▐░░░▄▄░░▌▐░░░▄▄░░▌▐███▌\n" +
-                "░▄▀▌░░░▀▀░░▌▐░░░▀▀░░▌▒▀▒█▌\n" +
-                "░▌▒▀▄░░░░▄▀▒▒▀▄░░░▄▀▒▒▄▀▒▌\n" +
-                "░▀▄▐▒▀▀▀▀▒▒▒▒▒▒▀▀▀▒▒▒▒▒▒█\n" +
-                "░░░▀▌▒▄██▄▄▄▄████▄▒▒▒▒█▀\n" +
-                "░░░░▄██████████████▒▒▐▌\n" +
-                "░░░▀███▀▀████▀█████▀▒▌\n" +
-                "░░░░░▌▒▒▒▄▒▒▒▄▒▒▒▒▒▒▐\n" +
-                "░░░░░▌▒▒▒▒▀▀▀▒▒▒▒▒▒▒▐");
         System.exit(0);
     }
 
     void show() {
         System.out.println("Комманда show была вызвана");
-        for (MusicBand band : vector) System.out.println("Все элементы коллекции в строковом представлении: " + band.toString());
+        System.out.println("Все элементы коллекции в строковом представлении:  \n");
+        for (MusicBand band : vector) System.out.println(band.toString());
     }
 
     void add() {
@@ -201,7 +179,7 @@ public class CollectionManager {
     void filterStartsWithName(String name) {
         System.out.println("Комманда filter_starts_with_name была вызвана");
         for (MusicBand band : vector) {
-            if (band.getName() == name) System.out.println(band.getName() + System.lineSeparator());
+            if (band.getName().startsWith(name)) System.out.println(band.getName() + System.lineSeparator());
             else return;
         }
         System.out.println("Элементов, значение поля name которых начинается с подстроки: " + name + " нет в коллекции");

@@ -12,41 +12,36 @@ public class MusicBand implements Comparable<MusicBand> {
     private MusicGenre genre; //Поле не может быть null
     private Label label; //Поле не может быть null
 
-    public MusicBand(String name, Coordinates coordinates, long numberOfParticipants, MusicGenre genre, Label label) {
-        this.id = ID++;
-        assert id > 0 : "Ошибка генератора уникальный id";
-        this.name = name;
-        assert name != null : "Поле 'Имя' не можнт быть null";
-        assert !"".equals(name) : "Поле 'Имя' не может быть строкой";
-        this.coordinates = coordinates;
-        assert coordinates != null : "Поле 'координаты не может быть null";
-        this.creationDate = ZonedDateTime.now();
-        this.numberOfParticipants = numberOfParticipants;
-        assert numberOfParticipants > 0 : "Поле 'Колличество участников' не может быть меньше нуля";
-        this.genre = genre;
-        assert genre != null : "Поле 'жанр' не может быть null";
-        this.label = label;
-        assert label != null : "Поле 'лейбл' не может быть null";
-    }
-
     public MusicBand(){
-
+        id = ID++;
+        this.creationDate = ZonedDateTime.now();
     }
 
-    public MusicBand(Long id, String name, Coordinates coordinates, ZonedDateTime creationDate, long numberOfParticipants, MusicGenre genre, Label label) {
-        this.id = id;
+    public MusicBand(String name, Coordinates coordinates,  long numberOfParticipants, MusicGenre genre, Label label) {
+        id = ID++;
+        this.creationDate = ZonedDateTime.now();
         this.name = name;
         this.coordinates = coordinates;
-        this.creationDate = creationDate;
         this.numberOfParticipants = numberOfParticipants;
         this.genre = genre;
         this.label = label;
         System.out.println("Музыкальная группа "+name + " успешно инициализирована.");
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public String toString() {
+        return "MusicBand{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", coordinates=" + coordinates +
+                ", creationDate=" + creationDate +
+                ", numberOfParticipants=" + numberOfParticipants +
+                ", genre=" + genre +
+                ", label=" + label +
+                '}';
     }
+
+    public String getName(){ return name; }
 
     public Coordinates getCoordinates() {
         return coordinates;
@@ -71,19 +66,12 @@ public class MusicBand implements Comparable<MusicBand> {
         return label;
     }
 
-    public void setId(Long id) {
-        this.id = id; }
-
     public void setName(String name) {
         this.name = name;
     }
 
     public void setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
-    }
-
-    public void setCreationDate(ZonedDateTime creationDate) {
-        this.creationDate = creationDate;
     }
 
     public void setNumberOfParticipants(long numberOfParticipants) {

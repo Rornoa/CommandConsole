@@ -2,7 +2,6 @@ package application;
 
 import building_procedure.BandBuilder;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Application {
@@ -20,19 +19,7 @@ public class Application {
     }
 
     void go() {
-        System.out.println("____________.♥.\n" +
-                "____________.♥♫♥.____________.♥. *\n" +
-                "____________.♥♫♥♫.______-.♥♫♥. * \n" +
-                "____________.♥♫♥♫♥._-.♥♫♥♫. * \n" +
-                "_____________.♥♫♥♫♥♫♥♫♥♫♥. *\n" +
-                "______-.♥♫♥♫♥♫♥♫♥♫♥♫♥. *             Добро пожаловать в музыкальный блокнот!\n" +
-                "_.♥♫♥♫♥♫♥♥♫♥♫♥♫♥♥♫♥♫♥. * . *            Для того чтобы ознакомиться с возможными командами введите help\n" +
-                "______-.♥♫♥♫♥♫♥♫♥♫♥♫♥. * . * . * ..\n" +
-                "___________.♥♫♥♫♥♫♥♫♥♫♥. * . * . * ..\n" +
-                "____________.♥♫♥♫♥._-.♫♥♫♥. * . *. * . * ..\n" +
-                "____________.♫♥♫♥.______-.♥♫♥. * .* ..\n" +
-                "____________.♥♫♥.____________.♥. * . *.\n" +
-                "_____________.♥\n");
+        System.out.println("Добро пожаловать в музыкальный блокнот!\n" + "Для того чтобы ознакомиться с возможными командами введите help\n");
         System.out.print(defaultConsoleSymbol);
         Scanner scanner = new Scanner(System.in);
         while (!needExit) {
@@ -54,7 +41,7 @@ public class Application {
                         collectionManager.clear();
                     break;
 
-                    case "save": // TODO: 14.11.2020 Проработать запись данных о коллекции в файл.
+                    case "save":
                         collectionManager.save();
                     break;
 
@@ -104,12 +91,6 @@ public class Application {
 
                     default:
                         System.out.println(" Такой команды нет ");
-                        System.out.println("__________________________ \t\t\t\n" +
-                                "___|____|____|____|____|__ \t\t\t\n" +
-                                "_|____|____|башкой|____|____| \t\t\t\n" +
-                                "___|____|биться|____|____|__ \t\t\t\n" +
-                                "|____|____|здесь|____|____| \t\t\t\n" +
-                                "___|____|____|____|____|__ \t\t\t\n");
                 }
         }
     }

@@ -4,17 +4,19 @@ import console.ConsoleReader;
 import object_of_collection.*;
 import exceptions.*;
 
-import java.io.IOException;
-import java.time.ZonedDateTime;
-
 public class BandBuilder implements IMusicBandBuilder, IMassages{
 
-    private MusicBand musicBand;
+    
     private BandCoordinatesBuilder bandCoordinateBuilder;
     private ConsoleReader consoleReader;
+    private Coordinates coordinates;
+    private long numberOfParticipants;
+    private Label label;
+    private MusicGenre musicGenre;
+    private String name;
 
     public BandBuilder(){
-        musicBand = new MusicBand();
+        label = new Label("");
         this.consoleReader = new ConsoleReader();
         this.bandCoordinateBuilder=new BandCoordinatesBuilder(consoleReader);
 
@@ -33,7 +35,7 @@ public class BandBuilder implements IMusicBandBuilder, IMassages{
             }
 
             if (readLine.length() > 3 && readLine.length() < 20) {
-                musicBand.setName((readLine).trim());
+                name =(readLine).trim();
                 break;
             } else
                 System.out.println(messageOfInputValueError);
@@ -41,7 +43,7 @@ public class BandBuilder implements IMusicBandBuilder, IMassages{
     }
 
     @Override
-    public void setCoordinates() {musicBand.setCoordinates(bandCoordinateBuilder.create());
+    public void setCoordinates() {coordinates = bandCoordinateBuilder.create();
     }
 
     @Override
@@ -62,7 +64,7 @@ public class BandBuilder implements IMusicBandBuilder, IMassages{
                 }
 
                 int parsedLine = Integer.parseInt(readLine);
-                    musicBand.setNumberOfParticipants(Integer.parseInt(readLine));
+                    numberOfParticipants = Integer.parseInt(readLine);
                     break;
             } catch(NumberFormatException e){
                 System.out.println(messageOfInputValueError);
@@ -85,65 +87,28 @@ public class BandBuilder implements IMusicBandBuilder, IMassages{
                 }
 
                 if (Integer.parseInt(readLine.trim()) == MusicGenre.POP.getNumber()) {
-                    musicBand.setGenre(MusicGenre.POP);
-                    System.out.println("Жарн группы успешно выбран: " + musicBand.getGenre().getName());
+                    musicGenre = MusicGenre.POP;
+                    System.out.println("Жарн группы успешно выбран: " + musicGenre.getName());
                     break;
                 } else if (Integer.parseInt(readLine.trim()) == MusicGenre.RAP.getNumber()) {
-                    musicBand.setGenre(MusicGenre.RAP);
-                    System.out.println("Жарн группы успешно выбран: " + musicBand.getGenre().getName());
-                    System.out.println("¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶\n" +
-                            "¶____________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶____________¶¶\n" +
-                            "¶______________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶_____________¶\n" +
-                            "¶¶¶____¶¶¶_____¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶___¶¶¶¶____¶\n" +
-                            "¶¶¶____¶¶¶_____¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶___¶¶¶¶____¶\n" +
-                            "¶¶¶____¶¶¶____¶¶¶¶¶________¶¶¶¶¶¶___¶¶¶¶____¶\n" +
-                            "¶¶¶__________¶¶¶¶¶_________¶¶¶¶¶¶__________¶¶\n" +
-                            "¶¶¶___________¶¶¶¶___¶¶¶___¶¶¶¶¶¶________¶¶¶¶\n" +
-                            "¶¶¶____¶¶¶¶___¶¶¶¶___¶¶¶___¶¶¶¶¶¶_____¶¶¶¶¶¶¶\n" +
-                            "¶¶¶____¶¶¶¶____¶¶¶___¶¶¶___¶¶¶¶¶¶_____¶¶¶¶¶¶¶\n" +
-                            "¶______¶¶¶______¶¶___________¶¶_________¶¶¶¶¶\n" +
-                            "¶______¶¶¶______¶¶¶______¶___¶¶_________¶¶¶¶¶\n" +
-                            "¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶\n");
+                    musicGenre = MusicGenre.RAP;
+                    System.out.println("Жарн группы успешно выбран: " + musicGenre.getName());
                     break;
                 } else if (Integer.parseInt(readLine.trim()) == MusicGenre.ROCK.getNumber()) {
-                    musicBand.setGenre(MusicGenre.ROCK);
-                    System.out.println("Жарн группы успешно выбран: " + musicBand.getGenre().getName());
-                    System.out.println("\n" +
-                            " `$   `$,   `$,    d;     ,  НАШ ДЕДУШКА ЛЕНИН-ПАНК! \n" +
-                            "`$b,  `$,   $$,  d$'   ,$ \n" +
-                            "`$$  l$  ;$$ d$$   ,$'    , \n" +
-                            "`$$b,;$$b,$$$$$$; ,d$$   ,$ \n" +
-                            "`$$$b$$$$$$$$$$$$$$$; ,d$' \n" +
-                            " `$$$*\"\"\"\"~~\"\"^L$$$$$$$$P    ,, \n" +
-                            " *^              ~^\"$$$$;_,s$' \n" +
-                            ",^                    `$$$$$$'    _ \n" +
-                            ",'                       `$$$'  ,y$\" \n" +
-                            "'                         `$$,y$$\" \n" +
-                            "(                           `$$$$' \n" +
-                            ",^       ,,,         ууууyyyyyууу$$$$$#=- \n" +
-                            "`\\,  ,,/'^  ``      `$$$$$$$$$$d;$$$~ \n" +
-                            "/' ,$$*=``-     `$b`?$$$$$$$$$$;$$$b, \n" +
-                            ",'   `^*;-=''    `$$$$$$$#$$$$$$$;$$$L$b. \n" +
-                            "(,,,;,             `L$-\",гy`?$$$$;$b, \n" +
-                            "`;``\"                 ]$& $';$$$$d$$$b, \n" +
-                            ",yyy,,                •@@&`'d$$$$d$P\"\"L$, \n" +
-                            "\\?`^\"$@by,            ~L>^,$$$$$d$$b, \n" +
-                            ",&~`^\"L?~#`        ,yb, ,?$$$$$d$$$$b, \n" +
-                            "'   $    ,      ,,yd$$$$$=+=$$$d$$~~\"L; \n" +
-                            "/   '$, $$$yyyyy$$$$$\" ,$$$•$$$d$$$b, \n" +
-                            "`-=##$$$$$$$$$$$$$$^~  ,$$$$$ \n");
+                    musicGenre = MusicGenre.ROCK;
+                    System.out.println("Жарн группы успешно выбран: " + musicGenre.getName());
                     break;
                 } else if (Integer.parseInt(readLine.trim()) == MusicGenre.POST_PUNK.getNumber()) {
-                    musicBand.setGenre(MusicGenre.POST_PUNK);
-                    System.out.println("Жарн группы успешно выбран: " + musicBand.getGenre().getName());
+                    musicGenre = MusicGenre.POST_PUNK;
+                    System.out.println("Жарн группы успешно выбран: " + musicGenre.getName());
                     break;
                 } else if (Integer.parseInt(readLine.trim()) == MusicGenre.PSYCHEDELIC_ROCK.getNumber()) {
-                    musicBand.setGenre(MusicGenre.PSYCHEDELIC_ROCK);
-                    System.out.println("Жарн группы успешно выбран: " + musicBand.getGenre().getName());
+                    musicGenre = MusicGenre.PSYCHEDELIC_ROCK;
+                    System.out.println("Жарн группы успешно выбран: " + musicGenre.getName());
                     break;
                 }else if (Integer.parseInt(readLine.trim()) == MusicGenre.JAZZ.getNumber()) {
-                    musicBand.setGenre(MusicGenre.JAZZ);
-                    System.out.println("Жарн группы успешно выбран: " + musicBand.getGenre().getName());
+                    musicGenre = MusicGenre.JAZZ;
+                    System.out.println("Жарн группы успешно выбран: " + musicGenre.getName());
                     break;
                 }
                 else {
@@ -166,7 +131,7 @@ public class BandBuilder implements IMusicBandBuilder, IMassages{
                 System.out.println(messageOfEmptyFormatError);
                 continue;
             }
-            musicBand.setLabel(readLine);
+            label.name = readLine;
             break;
         }
 
@@ -181,11 +146,8 @@ public class BandBuilder implements IMusicBandBuilder, IMassages{
         setGenre();
         setLabel();
         System.out.println("Группа была успешно создана");
-        return musicBand;
+        return new MusicBand(name,coordinates,numberOfParticipants,musicGenre,label);
 
     }
 
-    public MusicBand getMusicBand(){
-        return musicBand;
-    }
 }
