@@ -201,7 +201,7 @@ public class CollectionManager {
 
     void executeScript(String fileName) {
         System.out.println("Комманда execute_script была вызвана");
-        filePathToReadName = "C:\\Users\\23\\IdeaProjects\\Lab5VT\\src\\goups";
+        filePathToReadName = "C:\\Users\\User\\IdeaProjects\\CommandConsole\\resources\\groups2.xml";
         File file = new File(fileName);
         try (InputStreamReader reader = new InputStreamReader(new FileInputStream(file))) {
 
@@ -209,6 +209,7 @@ public class CollectionManager {
                 int x = reader.read();
                 char b = (char) x;
                 System.out.println(b);
+                reader.close();
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
