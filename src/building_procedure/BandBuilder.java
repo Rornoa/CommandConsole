@@ -16,7 +16,6 @@ public class BandBuilder implements IMusicBandBuilder, IMassages{
     private String name;
 
     public BandBuilder(){
-        label = new Label("");
         this.consoleReader = new ConsoleReader();
         this.bandCoordinateBuilder=new BandCoordinatesBuilder(consoleReader);
 
@@ -131,7 +130,7 @@ public class BandBuilder implements IMusicBandBuilder, IMassages{
                 System.out.println(messageOfEmptyFormatError);
                 continue;
             }
-            label.name = readLine;
+            label = new Label(readLine);
             break;
         }
 

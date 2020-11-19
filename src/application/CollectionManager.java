@@ -6,10 +6,7 @@ import object_of_collection.MusicGenre;
 import building_procedure.*;
 
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Vector;
@@ -17,7 +14,8 @@ import java.util.Vector;
 public class CollectionManager {
 
 
-    public static String fileName;
+    public static String filePathToWriteName;
+    public static String filePathToReadName;
 
     private BandBuilder bandBuilder;
     private Date initialisationDate;
@@ -33,7 +31,7 @@ public class CollectionManager {
     }
 
     void info() {
-        System.out.println("Коллекция Vector хранит обьекты музыкальных групп Application.MusicBand");
+        System.out.println("Коллекция Vector хранит обьекты музыкальных групп MusicBand");
         System.out.println("Коллекция была проинициализирована: " + initialisationDate);
         System.out.println("Коллекция содержит: " + vector.size() + " элементов");
     }
@@ -65,7 +63,7 @@ public class CollectionManager {
 
     void save() {
         System.out.println("Комманда save была вызвана");
-        fileName = "C:\\Users\\User\\IdeaProjects\\CommandConsole\\resources\\groups.xml";
+        filePathToWriteName = "C:\\Users\\User\\IdeaProjects\\CommandConsole\\resources\\groups.xml";
         String texttoWriteIn = "<Objects>\n";
         for (MusicBand musicBand : vector) {
             Coordinates coordinates = musicBand.getCoordinates();
@@ -85,7 +83,7 @@ public class CollectionManager {
                     "    </MusicBand>\n";
         }
         texttoWriteIn += "</Objects>";
-        File file = new File(fileName);
+        File file = new File(filePathToWriteName);
         System.out.println(file.getAbsolutePath());
         try {
 
@@ -134,7 +132,7 @@ public class CollectionManager {
 
     void add() {
         vector.add(bandBuilder.create());
-        System.out.println("Только что созданная, музыкальная группа была добавлена в коллекцию");
+        System.out.println("Только что созданная музыкальная группа была добавлена в коллекцию");
     }
 
     void printFieldAscendingLabel() {
@@ -146,23 +144,24 @@ public class CollectionManager {
         System.out.println("Значения поля label всех элементов в порядке возрастания были выведены");
     }
 
-    void removeById(Long key) {
+    void removeById(int key) {
         System.out.println("Комманда remove_by_id была вызвана");
-        if (vector.contains(key)) {
+        if (vector.contains(vector.elementAt(key))) {
             vector.remove(key);
             System.out.println("Элемент " + key + " удален");
         } else System.out.println("Такого элемента нет в коллекции");
     }
 
     void update(Long id, MusicBand musicBand) {
-        System.out.println("Комманда update_id была вызвана");
+        System.out.println("Комманда update была вызвана");
         for (int i = 0; i < vector.size(); i++) {
-            if (id.equals(musicBand.getId())) {
+            if (id.equals(vector.get(i).getId())) {
+                musicBand.setId(id);
                 vector.set(i, musicBand);
                 return;
             }
         }
-        System.out.println("Значения не совпадают между собой.");
+        System.out.println("Не найден элемент с id " + id);
     }
 
     void insertAtIndex(Integer index, MusicBand musicBand) {
@@ -185,7 +184,7 @@ public class CollectionManager {
         System.out.println("Элементов, значение поля name которых начинается с подстроки: " + name + " нет в коллекции");
     }
 
-    void coutLessThanGanre(String name) {//вывести количество элементов, значение поля genre которых меньше заданного
+    void coutLessThanGanre(String name) {
         System.out.println("Комманда count_less_than_genre была вызвана");
         int k = 0;
         try {
@@ -202,5 +201,19 @@ public class CollectionManager {
 
     void executeScript(String fileName) {
         System.out.println("Комманда execute_script была вызвана");
+        filePathToReadName = "C:\\Users\\23\\IdeaProjects\\Lab5VT\\src\\goups";
+        File file = new File(fileName);
+        try (InputStreamReader reader = new InputStreamReader(new FileInputStream(file))) {
+
+            while (true) {
+                int x = reader.read();
+                char b = (char) x;
+                System.out.println(b);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
+
 }

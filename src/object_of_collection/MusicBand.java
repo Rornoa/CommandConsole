@@ -87,9 +87,13 @@ public class MusicBand implements Comparable<MusicBand> {
         this.label =new Label(label);
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public int compareTo(MusicBand o) {
-        return this.creationDate.compareTo(o.creationDate);
+        return this.name.compareTo(o.name);
     }
 }
 

@@ -62,7 +62,7 @@ public class Application {
                     break;
 
                     case "remove_by_id":
-                        collectionManager.removeById((long)commandArgumentHandler.treatmentInt());
+                        collectionManager.removeById((int)commandArgumentHandler.treatmentInt());
                     break;
 
                     case "remove_lower":
