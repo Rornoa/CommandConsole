@@ -1,29 +1,30 @@
 package application;
 
 import building_procedure.BandBuilder;
+import console.*;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 public class Application {
 
-    private String defaultConsoleSymbol = ">>";
     private boolean needExit = false;
     private CollectionManager collectionManager;
     private CommandArgumentHandler commandArgumentHandler;
 
-    Application(CollectionManager collectionManager) {
+    Application(){
         this.commandArgumentHandler = new CommandArgumentHandler();
-        this.collectionManager = new CollectionManager();
-        if (collectionManager != null)
-            this.collectionManager = collectionManager;
+        this.collectionManager = new CollectionManager(this);
     }
 
-    void go() {
+    void go(Scanner scanner) {
         System.out.println("Добро пожаловать в музыкальный блокнот!\n" + "Для того чтобы ознакомиться с возможными командами введите help\n");
+        String defaultConsoleSymbol = ">>";
         System.out.print(defaultConsoleSymbol);
-        Scanner scanner = new Scanner(System.in);
+        BandBuilder bandBuilder = new BandBuilder(scanner);
         while (!needExit) {
-                String command = scanner.nextLine();
+                String command = scanner.nextLine().trim();
                 switch (command) {
                     case "show":
                         collectionManager.show();
@@ -58,23 +59,23 @@ public class Application {
                     break;
 
                     case "add" :
-                        collectionManager.add();
+                        collectionManager.add(bandBuilder.create());
                     break;
 
                     case "remove_by_id":
-                        collectionManager.removeById((int)commandArgumentHandler.treatmentInt());
+                        collectionManager.removeById(commandArgumentHandler.treatmentInt());
                     break;
 
                     case "remove_lower":
-                        collectionManager.removeLower(new BandBuilder().create());
+                        collectionManager.removeLower(bandBuilder.create());
                     break;
 
                     case "update":
-                        collectionManager.update((long)commandArgumentHandler.treatmentInt(),new BandBuilder().create());
+                        collectionManager.update((long)commandArgumentHandler.treatmentInt(),bandBuilder.create());
                     break;
 
                     case "insert_at_index":
-                        collectionManager.insertAtIndex(commandArgumentHandler.treatmentInt(),new BandBuilder().create());
+                        collectionManager.insertAtIndex(commandArgumentHandler.treatmentInt(),bandBuilder.create());
                     break;
 
                     case "filter_starts_with_name":
@@ -84,10 +85,12 @@ public class Application {
                     case "count_less_than_genre":
                         collectionManager.coutLessThanGanre(commandArgumentHandler.treatmentString());
                     break;
-                    // TODO: 14.11.2020 Проработать чтение скрипта из файла.
+
                     case "execute_script":
-                        collectionManager.executeScript(commandArgumentHandler.treatmentString());
+                        collectionManager.executeScript();
                     break;
+                    case "stop":
+                        return;
 
                     default:
                         System.out.println(" Такой команды нет ");

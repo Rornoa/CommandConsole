@@ -6,23 +6,23 @@ import object_of_collection.Coordinates;
 import console.ConsoleReader;
 
 import java.text.ParseException;
+import java.util.Scanner;
 
 public class BandCoordinatesBuilder implements ICoordinateBuilder, IMassages {
-    private ConsoleReader consoleReader;
+    private Scanner scanner;
     private Coordinates coordinates;
 
-    public BandCoordinatesBuilder(ConsoleReader consoleReader){
+    public BandCoordinatesBuilder(Scanner scanner){
         coordinates=new Coordinates();
-        this.consoleReader = consoleReader;
+        this.scanner = scanner;
     }
 
     @Override
     public void setX() {
         while (true) {
             System.out.println("Введите координату Х ");
-            consoleReader.printDefaultConsoleSymbol();
             try {
-                String readLine = consoleReader.getScanner().nextLine().trim();
+                String readLine = scanner.nextLine().trim();
                 if (readLine.length() == 0) {
                     System.out.println(messageOfEmptyFormatError);
                     continue;
@@ -47,9 +47,8 @@ public class BandCoordinatesBuilder implements ICoordinateBuilder, IMassages {
     public void setY() {
         while (true) {
             System.out.println("Введите координату Y ");
-            consoleReader.printDefaultConsoleSymbol();
             try {
-                String readLine = consoleReader.getScanner().nextLine().trim();
+                String readLine = scanner.nextLine().trim();
                 if (readLine.length() == 0) {
                     System.out.println(messageOfEmptyFormatError);
                     continue;

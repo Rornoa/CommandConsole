@@ -1,5 +1,7 @@
 package console;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 public class ConsoleReader {
@@ -7,7 +9,7 @@ public class ConsoleReader {
     private Scanner scanner;
     private String defaultConsoleSymbol = ">>";
 
-    public  ConsoleReader(){
+    public ConsoleReader(){
         scanner = new Scanner(System.in);
     }
 

@@ -9,23 +9,19 @@ import building_procedure.*;
 import java.io.*;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Scanner;
 import java.util.Vector;
 
 public class CollectionManager {
 
-
     public static String filePathToWriteName;
-    public static String filePathToReadName;
 
-    private BandBuilder bandBuilder;
+    private Application app;
     private Date initialisationDate;
     private Vector<MusicBand> vector;
 
-    public CollectionManager(File file) {
-    }
-
-    public CollectionManager() {
-        this.bandBuilder = new BandBuilder();
+    public CollectionManager(Application application) {
+        this.app = application;
         this.initialisationDate = new Date();
         vector = new Vector<MusicBand>();
     }
@@ -130,8 +126,8 @@ public class CollectionManager {
         for (MusicBand band : vector) System.out.println(band.toString());
     }
 
-    void add() {
-        vector.add(bandBuilder.create());
+    void add(MusicBand musicBand) {
+        vector.add(musicBand);
         System.out.println("Только что созданная музыкальная группа была добавлена в коллекцию");
     }
 
@@ -199,22 +195,16 @@ public class CollectionManager {
 
     }
 
-    void executeScript(String fileName) {
+    void executeScript() {
         System.out.println("Комманда execute_script была вызвана");
-        filePathToReadName = "C:\\Users\\User\\IdeaProjects\\CommandConsole\\resources\\groups2.xml";
+        String fileName = "C:\\Users\\User\\IdeaProjects\\CommandConsole\\resources\\script.txt";
         File file = new File(fileName);
-        try (InputStreamReader reader = new InputStreamReader(new FileInputStream(file))) {
-
-            while (true) {
-                int x = reader.read();
-                char b = (char) x;
-                System.out.println(b);
-                reader.close();
-            }
+        Scanner scanner;
+        try {
+            scanner = new Scanner(file);
+            app.go(scanner);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
     }
-
 }

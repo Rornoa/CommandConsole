@@ -4,20 +4,22 @@ import console.ConsoleReader;
 import object_of_collection.*;
 import exceptions.*;
 
+import java.util.Scanner;
+
 public class BandBuilder implements IMusicBandBuilder, IMassages{
 
-    
     private BandCoordinatesBuilder bandCoordinateBuilder;
-    private ConsoleReader consoleReader;
     private Coordinates coordinates;
+
     private long numberOfParticipants;
     private Label label;
     private MusicGenre musicGenre;
     private String name;
+    private Scanner scanner;
 
-    public BandBuilder(){
-        this.consoleReader = new ConsoleReader();
-        this.bandCoordinateBuilder=new BandCoordinatesBuilder(consoleReader);
+    public BandBuilder(Scanner scanner){
+        this.scanner=scanner;
+        this.bandCoordinateBuilder=new BandCoordinatesBuilder(scanner);
 
     }
 
@@ -25,8 +27,7 @@ public class BandBuilder implements IMusicBandBuilder, IMassages{
     public void setName() {
         while (true) {
             System.out.println("Выведите название музыкальной группы значение типа 'String' [не менее 3-х букв и не более 20-ти]");
-            consoleReader.printDefaultConsoleSymbol();
-            String readLine = consoleReader.getScanner().nextLine().trim();
+            String readLine = scanner.nextLine().trim();
             System.out.println(readLine);
             if (readLine.length() == 0) {
                 System.out.println(messageOfEmptyFormatError);
@@ -49,9 +50,8 @@ public class BandBuilder implements IMusicBandBuilder, IMassages{
     public void setNumberOfParticipants() {
         while (true) {
             System.out.println("Введите колличество участников музыкальной группы");
-            consoleReader.printDefaultConsoleSymbol();
             try {
-                String readLine = consoleReader.getScanner().nextLine().trim();
+                String readLine = scanner.nextLine().trim();
                 if (readLine.length() == 0) {
                     System.out.println(messageOfEmptyFormatError);
                     continue;
@@ -77,9 +77,8 @@ public class BandBuilder implements IMusicBandBuilder, IMassages{
         System.out.println("Выберите жанр для группы из доступных: ");
         MusicGenre.printAllGenres();
         System.out.println("Для этого введите соответствующий порядковый номер");
-        consoleReader.printDefaultConsoleSymbol();
             try {
-        String readLine = consoleReader.getScanner().nextLine().trim();
+        String readLine = scanner.nextLine().trim();
                 if (readLine.length() == 0) {
                     System.out.println(messageOfEmptyFormatError);
                     continue;
@@ -124,8 +123,7 @@ public class BandBuilder implements IMusicBandBuilder, IMassages{
     public void setLabel() {
         while (true) {
             System.out.println("Введите название лейбла группы");
-            consoleReader.printDefaultConsoleSymbol();
-            String readLine = consoleReader.getScanner().nextLine().trim();
+            String readLine = scanner.nextLine().trim();
             if (readLine.length() == 0) {
                 System.out.println(messageOfEmptyFormatError);
                 continue;
